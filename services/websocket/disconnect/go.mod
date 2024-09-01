@@ -1,4 +1,4 @@
-module blinders/packages/lambda
+module blinders/services/ws/disconnect
 
 go 1.22.1
 

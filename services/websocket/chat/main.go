@@ -8,11 +8,11 @@ import (
 	"os"
 	"sync"
 
-	wschat "blinders/functions/websocket/chat/core"
 	"blinders/packages/apigateway"
 	dbutils "blinders/packages/dbutils"
 	"blinders/packages/session"
 	"blinders/packages/utils"
+	wschat "blinders/services/ws/chat/core"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"

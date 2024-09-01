@@ -84,7 +84,7 @@ func BuildAction(ctx *cli.Context) error {
 			} else {
 				color.Yellow("[%v] unchange, ignore this build", name)
 			}
-		case "change":
+		case "dependency", "self":
 			color.Magenta("[%v] Change found, building", name)
 		default:
 			return fmt.Errorf("[%v] Unknown change result: %v", name, changeResult.Change)

@@ -15,5 +15,8 @@ use (
 	./services/practice
 	./services/translate
 	./services/users
-	./services/websocket
+	./services/websocket/authorizer
+	./services/websocket/chat
+	./services/websocket/connect
+	./services/websocket/disconnect
 )
