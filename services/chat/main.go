@@ -33,10 +33,8 @@ func NewService(
 
 func (s Service) InitFiberRoutes(r fiber.Router) {
 	// TODO: need to check if this user is in the conversation
-	conversations := r.Group(
-		"/conversations",
-		s.Auth.FiberAuthMiddleware(auth.Config{WithUser: true}),
-	)
+	authHandler := s.Auth.FiberAuthMiddleware(auth.Config{WithUser: true})
+	conversations := r.Group("/conversations", authHandler)
 	conversations.Get("/:id", s.GetConversationByID)
 	conversations.Get("/:id/messages", s.GetMessagesOfConversation)
 	conversations.Get("/", s.GetConversationsOfUser)
@@ -112,21 +110,21 @@ func (s Service) GetConversationsOfUser(ctx *fiber.Ctx) error {
 	}
 }
 
-type CreateConversationDTO struct {
+type CreateConversationBody struct {
 	Type repo.ConversationType `json:"type"`
 }
 
-type CreateGroupConvDTO struct {
-	CreateConversationDTO `json:",inline"`
+type CreateGroupConvBody struct {
+	CreateConversationBody `json:",inline"`
 }
 
-type CreateIndividualConvDTO struct {
-	CreateConversationDTO `       json:",inline"`
-	FriendID              string `json:"friendId"`
+type CreateIndividualConvBody struct {
+	CreateConversationBody `       json:",inline"`
+	FriendID               string `json:"friendId"`
 }
 
 func (s Service) CreateNewIndividualConversation(ctx *fiber.Ctx) error {
-	convDTO, err := utils.ParseJSON[CreateConversationDTO](ctx.Body())
+	convDTO, err := utils.ParseJSON[CreateConversationBody](ctx.Body())
 	if err != nil {
 		return ctx.Status(http.StatusBadRequest).JSON(&fiber.Map{
 			"error": "invalid payload to create conversation",
@@ -136,7 +134,7 @@ func (s Service) CreateNewIndividualConversation(ctx *fiber.Ctx) error {
 	switch convDTO.Type {
 	case repo.IndividualConversation:
 		{
-			convDTO, err := utils.ParseJSON[CreateIndividualConvDTO](ctx.Body())
+			convDTO, err := utils.ParseJSON[CreateIndividualConvBody](ctx.Body())
 			if err != nil {
 				return ctx.Status(http.StatusBadRequest).JSON(&fiber.Map{
 					"error": "invalid payload to create individual conversation",
