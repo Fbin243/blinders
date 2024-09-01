@@ -11,14 +11,8 @@ type ChatService interface{}
 
 type AuthService interface{}
 
-type CollectingService interface{}
-
-type EmbedderService interface{}
-
 type ExploreService interface{}
 
 type PracticeService interface{}
-
-type SuggestService interface{}
 
 type TranslateService interface{}

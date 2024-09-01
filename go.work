@@ -13,9 +13,7 @@ use (
 	./server
 	./services/chat
 	./services/practice
-	./services/suggest
 	./services/translate
 	./services/users
 	./services/websocket
-	./tests
 )
