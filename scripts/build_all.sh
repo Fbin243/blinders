@@ -6,5 +6,3 @@ then
 fi
 
 sh scripts/build_golambda.sh $1
-sh scripts/build_pylambda.sh $1
-sh scripts/build_pysuggest.sh $1
